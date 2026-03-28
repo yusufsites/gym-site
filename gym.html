@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iron Republic - Elite Fitness in Austin, Texas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --orange: #FF6600;
+            --dark-orange: #CC5200;
+            --black: #0D0D0D;
+            --dark-gray: #1A1A1A;
+            --light-gray: #2D2D2D;
+            --white: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Oswald', sans-serif;
+            background-color: var(--black);
+            color: var(--white);
+            line-height: 1.6;
+        }
+
+        /* Navbar */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(13, 13, 13, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+
+        nav.scrolled {
+            border-bottom: 2px solid var(--orange);
+            box-shadow: 0 4px 20px rgba(255, 102, 0, 0.2);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            font-weight: 400;
+            color: var(--orange);
+            letter-spacing: 3px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--orange);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--orange);
+        }
+
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .mobile-toggle span {
+            width: 30px;
+            height: 3px;
+            background-color: var(--orange);
+            transition: all 0.3s ease;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--black) 0%, #1a0a00 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: 'STRONGER';
+            position: absolute;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 15rem;
+            color: rgba(255, 102, 0, 0.05);
+            z-index: 0;
+            letter-spacing: 20px;
+            animation: slideText 20s linear infinite;
+        }
+
+        @keyframes slideText {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(50%); }
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 1;
+            animation: heroFade 1.2s ease;
+        }
+
+        @keyframes heroFade {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 6rem;
+            font-weight: 400;
+            color: var(--orange);
+            margin-bottom: 1rem;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            text-shadow: 0 0 30px rgba(255, 102, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2.5rem;
+            color: #DDDDDD;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            background-color: var(--orange);
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--white);
+            transition: left 0.4s ease;
+            z-index: -1;
+        }
+
+        .btn:hover::before {
+            left: 0;
+        }
+
+        .btn:hover {
+            color: var(--orange);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(255, 102, 0, 0.4);
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 4rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--orange);
+            letter-spacing: 5px;
+            text-transform: uppercase;
+        }
+
+        /* Membership Plans */
+        .plans-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .plan-card {
+            background: linear-gradient(135deg, var(--dark-gray), var(--light-gray));
+            padding: 3rem 2rem;
+            border: 2px solid transparent;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .plan-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--orange), var(--dark-orange));
+        }
+
+        .plan-card:hover {
+            border-color: var(--orange);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(255, 102, 0, 0.3);
+        }
+
+        .plan-card.featured {
+            border-color: var(--orange);
+            background: linear-gradient(135deg, #1a0a00, var(--dark-gray));
+        }
+
+        .plan-card h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--orange);
+            letter-spacing: 3px;
+        }
+
+        .plan-price {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3.5rem;
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .plan-price span {
+            font-size: 1.2rem;
+            color: #999;
+        }
+
+        .plan-features {
+            list-style: none;
+            margin: 2rem 0;
+        }
+
+        .plan-features li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(255, 102, 0, 0.2);
+            color: #CCC;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        .plan-features li:last-child {
+            border-bottom: none;
+        }
+
+        /* Classes Section */
+        .classes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .class-card {
+            background-color: var(--dark-gray);
+            padding: 2rem;
+            border-left: 5px solid var(--orange);
+            transition: all 0.3s ease;
+        }
+
+        .class-card:hover {
+            background-color: var(--light-gray);
+            transform: translateX(10px);
+            box-shadow: -5px 5px 20px rgba(255, 102, 0, 0.2);
+        }
+
+        .class-card h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: var(--orange);
+            letter-spacing: 2px;
+        }
+
+        .class-card p {
+            color: #BBBBBB;
+            font-weight: 400;
+            line-height: 1.6;
+        }
+
+        /* About Section */
+        .about-content {
+            background: linear-gradient(135deg, var(--dark-gray), var(--light-gray));
+            padding: 3rem;
+            border-top: 5px solid var(--orange);
+            line-height: 1.8;
+        }
+
+        .about-content p {
+            font-size: 1.1rem;
+            color: #CCCCCC;
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+        }
+
+        /* Contact Form */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: var(--dark-gray);
+            padding: 3rem;
+            border-top: 5px solid var(--orange);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--orange);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 1rem;
+            letter-spacing: 1px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            background-color: var(--light-gray);
+            border: 2px solid transparent;
+            color: var(--white);
+            font-family: 'Oswald', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--orange);
+            box-shadow: 0 0 15px rgba(255, 102, 0, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--black);
+            padding: 3rem 2rem;
+            text-align: center;
+            border-top: 3px solid var(--orange);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-content h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            color: var(--orange);
+            margin-bottom: 1rem;
+            font-size: 2.5rem;
+            letter-spacing: 4px;
+        }
+
+        .footer-content p {
+            color: #AAAAAA;
+            margin-bottom: 0.5rem;
+            font-weight: 400;
+        }
+
+        .footer-bottom {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--dark-gray);
+            color: #666;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                right: -100%;
+                flex-direction: column;
+                background-color: var(--black);
+                width: 100%;
+                padding: 2rem;
+                transition: right 0.3s ease;
+                border-top: 3px solid var(--orange);
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .mobile-toggle {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 3.5rem;
+                letter-spacing: 4px;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .hero::before {
+                font-size: 6rem;
+            }
+
+            h2 {
+                font-size: 2.5rem;
+            }
+
+            section {
+                padding: 3rem 1rem;
+            }
+
+            .plans-grid,
+            .classes-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-form {
+                padding: 2rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo">IRON REPUBLIC</div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#memberships">Memberships</a></li>
+                <li><a href="#classes">Classes</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="mobile-toggle" id="mobileToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Iron Republic</h1>
+            <p>Forge Your Legacy</p>
+            <a href="#memberships" class="btn">Join Now</a>
+        </div>
+    </section>
+
+    <!-- Membership Plans Section -->
+    <section id="memberships">
+        <h2>Membership Plans</h2>
+        <div class="plans-grid">
+            <div class="plan-card">
+                <h3>Basic</h3>
+                <div class="plan-price">$49<span>/month</span></div>
+                <ul class="plan-features">
+                    <li>Gym Access (6AM-10PM)</li>
+                    <li>Cardio Equipment</li>
+                    <li>Free Weight Area</li>
+                    <li>Locker Room Access</li>
+                    <li>No Contract</li>
+                </ul>
+                <a href="#contact" class="btn">Get Started</a>
+            </div>
+            <div class="plan-card featured">
+                <h3>Elite</h3>
+                <div class="plan-price">$89<span>/month</span></div>
+                <ul class="plan-features">
+                    <li>24/7 Gym Access</li>
+                    <li>All Basic Features</li>
+                    <li>Group Classes Included</li>
+                    <li>Guest Privileges (2/month)</li>
+                    <li>Personal Locker</li>
+                    <li>Nutritional Guidance</li>
+                </ul>
+                <a href="#contact" class="btn">Get Started</a>
+            </div>
+            <div class="plan-card">
+                <h3>Warrior</h3>
+                <div class="plan-price">$149<span>/month</span></div>
+                <ul class="plan-features">
+                    <li>All Elite Features</li>
+                    <li>4 Personal Training Sessions</li>
+                    <li>Priority Class Booking</li>
+                    <li>Unlimited Guest Privileges</li>
+                    <li>Meal Planning</li>
+                    <li>Recovery Zone Access</li>
+                    <li>Free Supplements</li>
+                </ul>
+                <a href="#contact" class="btn">Get Started</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Classes Section -->
+    <section id="classes">
+        <h2>Our Classes</h2>
+        <div class="classes-grid">
+            <div class="class-card">
+                <h3>HIIT Burn</h3>
+                <p>High-intensity interval training designed to torch calories and build endurance. 45 minutes of pure intensity.</p>
+            </div>
+            <div class="class-card">
+                <h3>Iron Pump</h3>
+                <p>Full-body strength training with barbells and free weights. Build muscle and increase power.</p>
+            </div>
+            <div class="class-card">
+                <h3>Combat Fit</h3>
+                <p>Mixed martial arts inspired workout combining boxing, kickboxing, and bodyweight exercises.</p>
+            </div>
+            <div class="class-card">
+                <h3>Core Destroyer</h3>
+                <p>Targeted ab and core training. Build a rock-solid foundation in this 30-minute burnout session.</p>
+            </div>
+            <div class="class-card">
+                <h3>Beast Mode</h3>
+                <p>Advanced strength and conditioning for serious athletes. Push your limits in this elite-level class.</p>
+            </div>
+            <div class="class-card">
+                <h3>Yoga Flow</h3>
+                <p>Dynamic yoga focused on flexibility, mobility, and recovery. Perfect for active rest days.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2>About Iron Republic</h2>
+        <div class="about-content">
+            <p>Iron Republic isn't just a gym—it's a movement. Founded in 2018 in the heart of Austin, Texas, we built this facility for those who refuse to settle, who push past limits, and who understand that greatness is forged through dedication and sweat.</p>
+            <p>Our 15,000 square foot facility features state-of-the-art equipment, dedicated lifting platforms, cardio zones, functional training areas, and recovery spaces. We've created an environment where serious athletes and fitness enthusiasts can train without distractions.</p>
+            <p>With expert coaches, innovative programming, and a community of driven individuals, Iron Republic is where transformation happens. We don't do gimmicks. We do results. Join the republic and discover what you're truly capable of.</p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <form class="contact-form" id="contactForm">
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone</label>
+                <input type="tel" id="phone" name="phone" required>
+            </div>
+            <div class="form-group">
+                <label for="plan">Interested In</label>
+                <select id="plan" name="plan" required>
+                    <option value="">Select an option</option>
+                    <option value="basic">Basic Membership</option>
+                    <option value="elite">Elite Membership</option>
+                    <option value="warrior">Warrior Membership</option>
+                    <option value="day-pass">Day Pass</option>
+                    <option value="personal-training">Personal Training</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="5"></textarea>
+            </div>
+            <button type="submit" class="btn">Submit</button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <h3>Iron Republic</h3>
+            <p>456 South Congress, Austin, TX 78704</p>
+            <p>Phone: (512) 555-IRON</p>
+            <p>Email: join@ironrepublic.com</p>
+            <p>Hours: 24/7 for Elite & Warrior Members | 6AM-10PM for Basic</p>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Iron Republic. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        mobileToggle.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking a link
+        const navItems = document.querySelectorAll('.nav-links a');
+        navItems.forEach(item => {
+            item.addEventListener('click', function() {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Form submission
+        const contactForm = document.getElementById('contactForm');
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thanks for reaching out! A member of our team will contact you within 24 hours to get you started.');
+            contactForm.reset();
+        });
+
+        // Animate cards on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.plan-card, .class-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
